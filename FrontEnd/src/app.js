@@ -1,5 +1,6 @@
-
+// This function sets the duty cycle of the fan and sends it to the server
 function setDutyCycle(dutyCycle) {
+    // Make sure the duty cycle is within the valid range of 0-100
     if (dutyCycle > 100) {
         dutyCycle = 100;
     }
@@ -7,30 +8,28 @@ function setDutyCycle(dutyCycle) {
         dutyCycle = 0;
     }
 
-    console.log("Duty Cycle Now: " + dutyCycle);
-
+    // Update the duty cycle value on the front-end
     var dutyCycleElement = document.getElementById("dutyCycle");
     dutyCycleElement.innerHTML = dutyCycle;
     var dutyCycleInputElement = document.getElementById("dutyInput");
     document.getElementById("dutySlider").value = dutyCycle;
     dutyCycleInputElement.value = "";
 
-    //Send Duty Cycle to Server
+    // Send the duty cycle to the server using a POST request
     const data = { "DutyCycle": dutyCycle };
-fetch(url+"DutyCycle", {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error(error));
-    
-    
+    fetch(url+"DutyCycle", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error));
 }
 
+// This function gets the duty cycle input value from the front-end and sets the duty cycle
 function getInputValue() {
     var inputVal = document.getElementById("dutyInput").value;
     if(inputVal == ""){
@@ -40,27 +39,27 @@ function getInputValue() {
     setDutyCycle(inputVal);
 }
 
-
+// This function updates the RPM value of the fan from the server and displays it on the front-end
 function updateRPM() {
-   
-    //Get RPM From Server
-
+    // Get the RPM value from the server using a GET request
     let rpmJSON = httpGet(url+"RPM");
-    // console.log(rpmJSON);
     rpm = JSON.parse(rpmJSON).RPM;
-    // let rpm = Math.floor(Math.random() * 1000)
-    // Update RPM on FrontEnd
+
+    // Update the RPM value on the front-end
     var rpmElement = document.getElementById("fanRPM");
     rpmElement.innerHTML = rpm;
 }
 
+// This function sends a synchronous GET request to the server and returns the response text
 function httpGet(theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.open("GET", theUrl, false);
     xmlHttp.send(null);
     return xmlHttp.responseText;
 }
 
+// This function is a global key listener that listens for ArrowRight, ArrowLeft, +, -, and Enter keys
+// ArrowRight and + increase the duty cycle by 1, ArrowLeft and - decrease it by 1, and Enter gets the input value and sets the duty cycle
 function globalKeyListener(e) {
     let dutyCycle = document.getElementById("dutySlider").value;
     console.log(e.key);
@@ -83,8 +82,11 @@ function globalKeyListener(e) {
     }
 }
 
+// The URL for the server
 const url = "http://localhost:5000/";
-setInterval(updateRPM, 500);
-window.addEventListener('keydown', globalKeyListener);
 
-    
+// Set up a timer to update the RPM every 500ms
+setInterval(updateRPM, 500);
+
+// Add a global key listener to the window
+window.addEventListener('keydown', globalKeyListener);

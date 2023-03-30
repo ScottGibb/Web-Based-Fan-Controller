@@ -1,22 +1,32 @@
 import random
 import sys
 from FanController import FanController
+from FanControllerMock import FanControllerMock
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-
-fanController = FanController(10, 12)
+fanController = None
 
 
 @app.route('/')
 def index():
+    """ Index Page route
+
+    Returns:
+        str: HTML content for the index page
+    """
     return "Fan Controller BackEnd"
 
 
 @app.route('/RPM', methods=['GET'])
 def get_rpm():
+    """ Get RPM route
+
+    Returns:
+        dict: JSON object containing the current RPM of the fan
+    """
     try:
         rpm = fanController.rpm
         return jsonify({'RPM': rpm})
@@ -26,6 +36,11 @@ def get_rpm():
 
 @app.route('/DutyCycle', methods=['POST'])
 def set_duty_cycle():
+    """ Set Duty Cycle Endpoint
+
+    Returns:
+        dict: JSON object with success status and error message if applicable
+    """
     try:
         data = request.get_json()
         duty_cycle = data['DutyCycle']
@@ -38,11 +53,21 @@ def set_duty_cycle():
 
 
 def run_app(host="0.0.0.0", port=5000):
+    """ Runs the Flask app
+
+    Args:
+        host (str): The hostname for the Flask app
+        port (int): The port number for the Flask app
+    """
     app.run(host=host, port=port)
 
 
 if __name__ == '__main__':
     try:
+        if 'mock' in sys.argv:
+            fanController = FanControllerMock()
+        else:
+            fanController = FanController(18, 23)
         ip_address = sys.argv[1]
         port_num = sys.argv[2]
         run_app(ip_address, port_num)

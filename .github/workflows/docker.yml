@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build BackEnd Dockerfile
-        run: docker build ./BackEnd -t pythonwebapp_backend
+        run: docker build ./BackEnd -t pythonwebapp_backend --build-arg MOCK="mock"
 
       - name: Build FrontEnd Dockerfile
         run: docker build ./FrontEnd -t pythonwebapp_frontend
@@ -37,7 +37,7 @@ jobs:
         run: |
           docker-compose config --quiet || { echo "Invalid Docker Compose file"; exit 1; }
 
-      - name: Run Docker Compose
+      - name: Run Docker Compose -e MOCK="mock"
         run: |
           docker-compose up -d
           sleep 2

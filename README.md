@@ -13,6 +13,37 @@ This project contains a very simple web based application for controlling a Fan.
 The architecture of the system is as follows:
 
 
+## Installation
+
+### Update Pins
+
+Firstly, navigate to the `PythonWebApp/BackEnd/src` directory and open the `app.py` file. In this file you will need to update the constructor of FanController to the pins you have connected the fan to. The pin number should be the BCM pin number.
+
+Once this is completed, save the file and close it.
+
+### Build Docker Images through Docker Compose
+
+Next, navigate to the `PythonWebApp` directory and run the following command:
+
+```bash
+docker-compose up -d --build
+```
+
+After this the docker image will be built and the containers will be started. The web app should now be accessible at `http://localhost:8000`.
+
+### Build and run Docker Images Manually
+
+Alternatively, you can build the docker images manually. To do this, navigate to the `PythonWebApp/BackEnd` directory and run the following command:
+
+```bash
+sh run.sh
+```
+
+The same can be done for the frontend by navigating to the `PythonWebApp/FrontEnd` directory and running the following command:
+
+```bash
+sh run.sh
+```
 
 ## Useful Links
 
