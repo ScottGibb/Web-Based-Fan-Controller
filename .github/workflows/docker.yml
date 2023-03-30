@@ -1,0 +1,50 @@
+name: Build and Test Docker
+
+on: [push]
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build BackEnd Dockerfile
+        run: docker build ./BackEnd -t pythonwebapp_backend
+
+      - name: Build FrontEnd Dockerfile
+        run: docker build ./FrontEnd -t pythonwebapp_frontend
+
+      - name: Run FrontEnd Dockerfile
+        run: |
+          docker run -d -p 8000:80 --name frontend pythonwebapp_frontend:latest
+          sleep 2
+          docker stop frontend
+
+      - name: Run BackEnd Dockerfile
+        run: |
+          docker run -d -p 5000:80 --name backend pythonwebapp_backend:latest
+          sleep 2
+          docker stop backend
+
+  compose-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check valid Docker Compose file
+        run: |
+          docker-compose config --quiet || { echo "Invalid Docker Compose file"; exit 1; }
+
+      - name: Run Docker Compose
+        run: |
+          docker-compose up -d
+          sleep 2
+          ps_output=$(docker-compose ps --quiet)
+          running_containers=$(docker ps --quiet --filter="name=$(docker-compose ps --services)" | sort)
+          if [ "$ps_output" != "$running_containers" ]; then
+            echo "Error: containers listed in docker-compose ps do not match running containers"
+            exit 1
+          fi
+          docker-compose down
