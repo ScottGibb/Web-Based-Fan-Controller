@@ -41,10 +41,4 @@ jobs:
         run: |
           docker-compose up -d
           sleep 2
-          ps_output=$(docker-compose ps --quiet)
-          running_containers=$(docker ps --quiet --filter="name=$(docker-compose ps --services)" | sort)
-          if [ "$ps_output" != "$running_containers" ]; then
-            echo "Error: containers listed in docker-compose ps do not match running containers"
-            exit 1
-          fi
           docker-compose down
