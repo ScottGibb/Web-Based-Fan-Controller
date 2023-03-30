@@ -1,0 +1,1 @@
+[![Build and Test Docker](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/docker.yml/badge.svg)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/docker.yml)
