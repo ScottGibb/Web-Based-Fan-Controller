@@ -3,7 +3,7 @@ name: Build and Test Docker
 on: [push]
 
 jobs:
-  build:
+  docker-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -15,15 +15,26 @@ jobs:
       - name: Build FrontEnd Dockerfile
         run: docker build ./FrontEnd -t pythonwebapp_frontend
 
-      - name: run FrontEnd Dockerfile
+      - name: Run FrontEnd Dockerfile
         run: |
-          docker run -d --rm pythonwebapp_frontend
+          docker run -d -p 8000:80--rm pythonwebapp_frontend
           run: sleep 2
           run: docker stop pythonwebapp_frontend
 
-      - name: run BackEnd Dockerfile
+      - name: Run BackEnd Dockerfile
         run: |
-          test BackEnd Dockerfile
-          docker run -d --rm pythonwebapp_backend
+          docker run -d -p 8000:80 --rm pythonwebapp_backend
           sleep 2
           docker stop pythonwebapp_backend
+
+  # compose-build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+
+  #     - name: Run Docker Compose
+  #       run: |
+  #         docker-compose up -d
+  #         sleep 2
+  #         docker-compose down
