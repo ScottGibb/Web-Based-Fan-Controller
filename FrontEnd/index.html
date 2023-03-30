@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en ">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Intro</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div>
+      <img />
+      <h1>Fan Controller</h1>
+      <img
+        src="img/MiniGibb.jpeg"
+        id="Logo"
+        alt="fan"
+        width="200"
+        height="200"
+      />
+      <img
+        src="img/Fan Blades.jpg"
+        width="200"
+        id="fan"
+        height="200"
+        class="rotate"
+      />
+    </div>
+    <div class="btn-group" role="group" aria-label="Fan Control">
+      <button
+        id="0%"
+        type="button"
+        class="btn btn-secondary"
+        onclick="setDutyCycle(0)"
+      >
+        0%
+      </button>
+      <button
+        id="50%"
+        type="button"
+        class="btn btn-secondary"
+        onclick="setDutyCycle(50)"
+      >
+        50%
+      </button>
+      <button
+        id="100%"
+        type="button"
+        class="btn btn-secondary"
+        onclick="setDutyCycle(100)"
+      >
+        100%
+      </button>
+    </div>
+    <div>
+      <input
+        id="dutyInput"
+        type="text"
+        id="fanSpeed"
+        placeholder="Duty Cycle %"
+      />
+      <input type="range" min "0" max="100" value="50" class="slider"
+      id="dutySlider" oninput="setDutyCycle(this.value)">
+      <p>Fan Duty Cyle: <span id="dutyCycle"></span>%</p>
+      <p>Fan RPM: <span id="fanRPM"></span></p>
+
+      <button
+        id="submit"
+        type="button"
+        class="btn btn-primary"
+        onclick="getInputValue()"
+      >
+        Submit
+      </button>
+    </div>
+  </body>
+  <script type="text/javascript" src="app.js"></script>
+</html>
