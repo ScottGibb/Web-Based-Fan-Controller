@@ -5,8 +5,17 @@
 
 ## Summary
 
+This project contains a very simple web based application for controlling a Fan. This was my first time creating a web app and as such is not the best app ever built. However it was done as an educational project to explore different aspects of web development. The project consists of both a backend and frontend component. The backend is written in Python and uses the Flask framework. The frontend is written in HTML and CSS and uses Bootstrap for styling. The backend and frontend are packaged together in a Docker compose file, the system is designed to run on a raspberry pi. However the frontend docker container can be moved to a seperate server if desired.
+
 
 ## Architecture
 
+The architecture of the system is as follows:
+
+
 
 ## Useful Links
+
+- [Flask](https://flask.palletsprojects.com/en/2.0.x/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Docker](https://www.docker.com/)

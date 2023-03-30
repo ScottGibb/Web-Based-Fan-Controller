@@ -115,3 +115,7 @@ Thumbs.db
 !.gitignore
 !.nvmrc
 !.phpcs.xml.dist
+
+# Drawio files
+*.bkp
+*.dtmp
