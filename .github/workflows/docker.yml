@@ -37,8 +37,10 @@ jobs:
         run: |
           docker-compose config --quiet || { echo "Invalid Docker Compose file"; exit 1; }
 
-      - name: Run Docker Compose -e MOCK="mock"
+      - name: Run Docker Compose
         run: |
+          touch .env
+          echo "MOCK=mock" >> .env
           docker-compose up -d
           sleep 2
           docker-compose down

@@ -28,6 +28,11 @@ Next, navigate to the `PythonWebApp` directory and run the following command:
 ```bash
 docker-compose up -d --build
 ```
+If you want to build the mock version of the backend, run the following command instead:
+
+```bash
+docker-compose up -d --build -e MOCK="mock"
+```
 
 After this the docker image will be built and the containers will be started. The web app should now be accessible at `http://localhost:8000`.
 
