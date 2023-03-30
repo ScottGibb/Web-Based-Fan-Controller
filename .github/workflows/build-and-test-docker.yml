@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout
+        uses: actions/checkout@latest
 
       - name: Test BackEnd Dockerfile
         run: docker build ./BackEnd
@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout
+        uses: actions/checkout@latest
 
       - name: Test Docker Compose file
         run: docker-compose up --abort-on-container-exit --build
