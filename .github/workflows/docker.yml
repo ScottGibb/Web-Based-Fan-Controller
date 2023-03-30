@@ -1,0 +1,26 @@
+name: Build and Test Docker
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test BackEnd Dockerfile
+        run: docker build ./BackEnd
+
+      - name: Test FrontEnd Dockerfile
+        run: docker build ./FrontEnd
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Test Docker Compose file
+        run: docker-compose up --abort-on-container-exit --build
+        working-directory: ./compose
