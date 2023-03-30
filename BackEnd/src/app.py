@@ -62,6 +62,9 @@ def run_app(host="0.0.0.0", port=5000):
 
 
 if __name__ == '__main__':
+    print("Script Arguments:")
+    for var in sys.argv:
+        print(var)
     try:
         if 'mock' in sys.argv:
             print("Using Mock Fan Controller")

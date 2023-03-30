@@ -3,8 +3,6 @@
 # Use the official Python image
 FROM python:3.7
 
-ARG mock="" # No MOCK by default
-
 # Set the working directory to /app
 WORKDIR /app
 
@@ -18,6 +16,7 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
 
+ENV MOCK="mock"
 # Run app.py when the container launches
-CMD ["python3", "app.py",${mock}]
+CMD ["sh", "-c","python app.py $MOCK"]
 
