@@ -10,6 +10,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 ADD src /app
 
+ADD requirements.txt /app
+
 # Install any needed packages specified in requirements.txt
 RUN pip3 install -r requirements.txt
 
