@@ -15,13 +15,14 @@ jobs:
       - name: Build FrontEnd Dockerfile
         run: docker build ./FrontEnd -t pythonwebapp_frontend
 
-      - name: test FrontEnd Dockerfile
+      - name: run FrontEnd Dockerfile
         run: |
           docker run -d --rm pythonwebapp_frontend
           run: sleep 2
           run: docker stop pythonwebapp_frontend
 
-      - name: |
+      - name: run BackEnd Dockerfile
+        run: |
           test BackEnd Dockerfile
           docker run -d --rm pythonwebapp_backend
           sleep 2
