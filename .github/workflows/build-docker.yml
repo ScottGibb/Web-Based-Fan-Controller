@@ -17,13 +17,13 @@ jobs:
 
       - name: Run FrontEnd Dockerfile
         run: |
-          docker run -d -p 8000:80 pythonwebapp_frontend
+          docker run -d -p 8000:80 pythonwebapp_frontend:latest
           sleep 2
           docker stop pythonwebapp_frontend
 
       - name: Run BackEnd Dockerfile
         run: |
-          docker run -d -p 5000:80 pythonwebapp_backend
+          docker run -d -p 5000:80 pythonwebapp_backend:latest
           sleep 2
           docker stop pythonwebapp_backend
 
