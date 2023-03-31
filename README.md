@@ -4,6 +4,9 @@
 [![Static Analysis](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Static%20Analysis.yml/badge.svg)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Static%20Analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+<center>
+<img src ="docs/Languages_And_Tools.png">
+</center>
 
 ## Summary
 
@@ -14,6 +17,9 @@ This project contains a very simple web based application for controlling a Fan.
 
 The architecture of the system is as follows:
 
+<center>
+<img src ="docs/System-Architecture.png">
+</center>
 
 ## Installation
 
