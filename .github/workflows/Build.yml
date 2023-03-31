@@ -17,7 +17,7 @@ jobs:
       - name: Check Dockerfiles
         run: |
           hadolint --failure-threshold error --verbose ./BackEnd/Dockerfile 
-          hadolint --failure-threshold error --verbose ./FrontEnd/Dockerfilem 
+          hadolint --failure-threshold error --verbose ./FrontEnd/Dockerfile
 
       - name: Build BackEnd Dockerfile
         run: docker build ./BackEnd -t pythonwebapp_backend --build-arg MOCK="mock"
