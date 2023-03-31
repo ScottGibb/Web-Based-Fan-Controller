@@ -23,39 +23,45 @@ class FanController():
             pwm_pin (int): The GPIO pin number for PWM control.
             tach_pin (int): The GPIO pin number for tachometer feedback.
         """
-        self.__PWM_FREQUENCY =1000
+        self.__PWM_FREQUENCY = 1000
         self.__rpm = 0
         self.__duty_cycle = 0
         self.__alive = False
         self.__pwm_pin = pwm_pin
         self.__tach_pin = tach_pin
 
-        GPIO.setmode(GPIO.BCM)
+        self.__start_time = 0
+
+        GPIO.setmode(GPIO.BOARD)
         GPIO.setup(self.__pwm_pin, GPIO.OUT)
-        GPIO.setup(self.__tach_pin, GPIO.IN)
+        GPIO.setup(self.__tach_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
         self.__pwm = GPIO.PWM(self.__pwm_pin, self.__PWM_FREQUENCY)
         self.__pwm.start(0)
+        GPIO.add_event_detect(
+            self.__tach_pin, GPIO.FALLING, self.__fallen_trigger)
 
-        thread = threading.Thread(target=self.__update_loop, args=())
-        thread.start()
+    def __del__(self):
+        """
+        Destructor for the FanController class.
+        """
+        self.__pwm.stop()
+        GPIO.cleanup()
 
-    def __update_loop(self):
+    def __fallen_trigger(self, channel):
         """
-        A private method to continuously update the RPM value.
+        A callback function for the tachometer falling edge.
+
+        Args:
+            channel (int): The GPIO channel number.
         """
-        self.__alive = True
-        prev_time = 0
-        prev_count = 0
-        while self.__alive:
-            curr_time = time.time()
-            duration = curr_time - prev_time
-            prev_time = curr_time
-            count = GPIO.input(self.__tach_pin)
-            if count != prev_count:
-                self.__rpm = int((count / duration) * 60 / 2)
-                prev_count = count
-            sleep(1)
+        dt = time.time() - self.__start_time
+        if dt < 0.01:
+            return  # reject spuriously short pulses
+
+        freq = 1 / dt
+        self.__rpm = (freq / 2) * 60
+        self.__start_time = time.time()
 
     @property
     def rpm(self):
