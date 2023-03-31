@@ -13,12 +13,6 @@ class FanControllerMock():
         self.__rpm = 0
         self.__duty_cycle = 0
 
-    def update(self):
-        """
-        Update the RPM and duty cycle variables with random values.
-        """
-        self.__rpm = random.randint(0, 1000)
-
     @property
     def rpm(self):
         """
@@ -27,6 +21,7 @@ class FanControllerMock():
         Returns:
         int: The current RPM value.
         """
+        self.__rpm = random.randint(0, 100)
         return self.__rpm
 
     @property

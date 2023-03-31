@@ -21,25 +21,26 @@ function setDutyCycle(dutyCycle) {
     }
 
     // Update the duty cycle value on the front-end
-    const dutyCycleElement = document.getElementById('duty_cycle');
-    const dutyCycleInputElement = document.getElementById('duty_input');
 
+    // Update the duty cycle value on the front-end
+    var dutyCycleElement = document.getElementById("dutyCycle");
     dutyCycleElement.innerHTML = dutyCycle;
-    document.getElementById('duty_slider').value = dutyCycle;
-    dutyCycleInputElement.value = '';
+    var dutyCycleInputElement = document.getElementById("dutyInput");
+    document.getElementById("dutySlider").value = dutyCycle;
+    dutyCycleInputElement.value = "";
 
     // Send the duty cycle to the server using a POST request
-    const data = { 'duty_cycle': dutyCycle };
-    fetch(url + 'DutyCycle', {
+    const data = { "DutyCycle": dutyCycle };
+    fetch(url + "DutyCycle", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
     })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
 }
 
 
