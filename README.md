@@ -19,7 +19,7 @@ The architecture of the system is as follows:
 
 ### Update Pins
 
-Firstly, navigate to the `PythonWebApp/BackEnd/src` directory and open the `app.py` file. In this file you will need to update the constructor of FanController to the pins you have connected the fan to. The pin number should be the BCM pin number.
+Firstly, navigate to the `PythonWebApp/BackEnd/src` directory and open the `app.py` file. In this file you will need to update the constructor of FanController to the pins you have connected the fan to. The pin number should be the BCM pin number. Also when lauching on a raspberry pi, ensure that the pi-rpio requirement is uncommented inside the `requirements.txt` file.
 
 Once this is completed, save the file and close it.
 
