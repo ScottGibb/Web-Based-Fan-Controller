@@ -124,6 +124,7 @@ Thumbs.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
+BackEnd/__pycache__/
 *.py[cod]
 *$py.class
 
