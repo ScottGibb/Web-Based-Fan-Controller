@@ -57,9 +57,14 @@ sh run.sh
 The project uses GitHub actions to perform continuous integration. The workflow is defined in the `.github/workflows folder
 
 ### Build
+
+### Static Analysis
 - shellcheck
 - Hadolint
-- 
+- pylint
+- cslint
+- eslint
+- htmllint
 ### Test
 
 ## Useful Links
