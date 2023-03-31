@@ -9,6 +9,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download Packages
+        run: |
+          wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v2.10.0/hadolint-Linux-x86_64
+          chmod +x /bin/hadolint .
+
+      - name: Check Dockerfiles
+        run: |
+          hadolint ./BackEnd/Dockerfile
+          hadolint ./FrontEnd/Dockerfile
+
       - name: Build BackEnd Dockerfile
         run: docker build ./BackEnd -t pythonwebapp_backend --build-arg MOCK="mock"
 
@@ -51,12 +61,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Download Packages
+        run: |
+          apt-get install shellcheck
+
+      - name: Check Shell Scripts
+        run: |
+          shellcheck BackEnd/run.sh
+          shellcheck FrontEnd/run.sh
+
       - name: Run BackEnd Script
         run: |
           chmod +x ./BackEnd/run.sh
           cd BackEnd
           ./run.sh mock
           cd ..
+
       - name: Run FrontEnd Script
         run: |
           chmod +x ./FrontEnd/run.sh
