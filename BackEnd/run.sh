@@ -1,3 +1,4 @@
+#bin/bash
 # Simple Script for building and running the Docker Image
 
 # Build the Docker Image
