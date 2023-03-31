@@ -11,35 +11,35 @@ const url = 'http://localhost:5000/';
  * @param {*} dutyCycle
  */
 function setDutyCycle(dutyCycle) {
-  // Make sure the duty cycle is within the valid range of 0-100
-  'use strict';
-  if (dutyCycle > 100) {
-    dutyCycle = 100;
-  }
-  if (dutyCycle < 0) {
-    dutyCycle = 0;
-  }
+    // Make sure the duty cycle is within the valid range of 0-100
+    'use strict';
+    if (dutyCycle > 100) {
+        dutyCycle = 100;
+    }
+    if (dutyCycle < 0) {
+        dutyCycle = 0;
+    }
 
-  // Update the duty cycle value on the front-end
-  const dutyCycleElement = document.getElementById('duty_cycle');
-  const dutyCycleInputElement = document.getElementById('duty_input');
+    // Update the duty cycle value on the front-end
+    const dutyCycleElement = document.getElementById('duty_cycle');
+    const dutyCycleInputElement = document.getElementById('duty_input');
 
-  dutyCycleElement.innerHTML = dutyCycle;
-  document.getElementById('duty_slider').value = dutyCycle;
-  dutyCycleInputElement.value = '';
+    dutyCycleElement.innerHTML = dutyCycle;
+    document.getElementById('duty_slider').value = dutyCycle;
+    dutyCycleInputElement.value = '';
 
-  // Send the duty cycle to the server using a POST request
-  const data = {'duty_cycle': dutyCycle};
-  fetch(url + 'duty_cycle', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.error(error));
+    // Send the duty cycle to the server using a POST request
+    const data = { 'duty_cycle': dutyCycle };
+    fetch(url + 'DutyCycle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((error) => console.error(error));
 }
 
 
@@ -48,12 +48,12 @@ function setDutyCycle(dutyCycle) {
  * @date 31/03/2023 - 12:58:01
  */
 function getInputValue() {
-  const inputVal = document.getElementById('duty_input').value;
-  if (inputVal == '') {
-    return;
-  }
+    const inputVal = document.getElementById('duty_input').value;
+    if (inputVal == '') {
+        return;
+    }
 
-  setDutyCycle(inputVal);
+    setDutyCycle(inputVal);
 }
 
 /**
@@ -61,13 +61,13 @@ function getInputValue() {
  * @date 31/03/2023 - 12:58:25
  */
 function updateRPM() {
-  // Get the RPM value from the server using a GET request
-  const rpmJSON = httpGet(url + 'RPM');
-  rpm = JSON.parse(rpmJSON).RPM;
+    // Get the RPM value from the server using a GET request
+    const rpmJSON = httpGet(url + 'RPM');
+    rpm = JSON.parse(rpmJSON).RPM;
 
-  // Update the RPM value on the front-end
-  const rpmElement = document.getElementById('fan_rpm');
-  rpmElement.innerHTML = rpm;
+    // Update the RPM value on the front-end
+    const rpmElement = document.getElementById('fan_rpm');
+    rpmElement.innerHTML = rpm;
 }
 
 
@@ -79,10 +79,10 @@ function updateRPM() {
  * @return {*}
  */
 function httpGet(theUrl) {
-  const xmlHttp = new XMLHttpRequest();
-  xmlHttp.open('GET', theUrl, false);
-  xmlHttp.send(null);
-  return xmlHttp.responseText;
+    const xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('GET', theUrl, false);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
 }
 
 
@@ -93,25 +93,25 @@ function httpGet(theUrl) {
  * @param {*} e
  */
 function globalKeyListener(e) {
-  let dutyCycle = document.getElementById('duty_slider').value;
-  console.log(e.key);
-  switch (e.key) {
-    case 'ArrowRight':
-    case '+':
-      dutyCycle++;
-      setDutyCycle(dutyCycle);
-      break;
-    case 'ArrowLeft':
-    case '-':
-      dutyCycle--;
-      setDutyCycle(dutyCycle);
-      break;
-    case 'Enter':
-      getInputValue();
-      break;
-    default:
+    let dutyCycle = document.getElementById('duty_slider').value;
+    console.log(e.key);
+    switch (e.key) {
+        case 'ArrowRight':
+        case '+':
+            dutyCycle++;
+            setDutyCycle(dutyCycle);
+            break;
+        case 'ArrowLeft':
+        case '-':
+            dutyCycle--;
+            setDutyCycle(dutyCycle);
+            break;
+        case 'Enter':
+            getInputValue();
+            break;
+        default:
         // console.log("Other Key");
-  }
+    }
 }
 
 
