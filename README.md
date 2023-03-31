@@ -1,7 +1,7 @@
 # Web Based Fan Controller
 
 [![Build](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Build.yml/badge.svg?branch=main)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Build.yml)
-[![Test](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Test.yml/badge.svg?branch=main)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Test.yml)
+[![Static Analysis](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Static%20Analysis.yml/badge.svg)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Static%20Analysis.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
