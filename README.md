@@ -58,14 +58,23 @@ The project uses GitHub actions to perform continuous integration. The workflow 
 
 ### Build
 
-### Static Analysis
+As part of the pipelines associated with this project is a build stage, Which builds the docker images for the backend and frontend. The build stage is defined in the `Build.yml` file. It also performs static analysis on the code using the following tools:
+
 - shellcheck
-- Hadolint
+- hadolint
+
+This allows both dockerfiles to be validated and tested. This stage also tests the run scripts for both backend and frontend.
+
+
+### Static Analysis
+
+The static analysis stage is defined in the `Static Analysis.yml` file. It performs static analysis on the code using the following tools:
 - pylint
 - cslint
 - eslint
 - htmllint
-### Test
+
+This allows all the code associated with this project to be properly verified and kept up to certain standards.
 
 ## Useful Links
 
