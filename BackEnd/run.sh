@@ -6,4 +6,9 @@ docker build -t pythonwebapp-backend .
 # Run the Docker Image
 
 # Run the Docker Image in the background
-docker run -p 5000:5000 -d pythonwebapp-backend
+
+if[$# -eq 0]; then
+    docker run -p 5000:5000 -d pythonwebapp-backend
+else
+    docker run -p 5000:5000 -d -e MOCK=$1 pythonwebapp-backend 
+fi

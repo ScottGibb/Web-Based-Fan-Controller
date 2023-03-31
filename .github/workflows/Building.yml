@@ -27,7 +27,7 @@ jobs:
           sleep 2
           docker stop backend
 
-  compose-build:
+  docker-compose-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,3 +44,17 @@ jobs:
           docker-compose up -d
           sleep 2
           docker-compose down
+
+  scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run BackEnd Script
+        run: |
+          chmod +x ./BackEnd/run.sh mock
+
+      - name: Run FrontEnd Script
+        run: |
+          chmod +x ./FrontEnd/run.sh

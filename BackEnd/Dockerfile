@@ -16,7 +16,7 @@ RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
 
-ENV MOCK="mock"
+ENV MOCK=""
 # Run app.py when the container launches
 CMD ["sh", "-c","python app.py $MOCK"]
 
