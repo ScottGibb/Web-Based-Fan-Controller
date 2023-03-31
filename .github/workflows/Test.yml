@@ -13,3 +13,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Download Packages
+        run: |
+          pip install pylint
+          pip install requirements.txt
+
+      - name: Static Analysis
+        run: |
+          pylint ./BackEnd/src/*.py
+
+      - name: Run Unit Tests
+        run: |
+          echo "To be implemented"

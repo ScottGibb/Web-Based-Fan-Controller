@@ -1,12 +1,15 @@
-import random
+""" Flask App"""
 import sys
-from FanControllerMock import FanControllerMock
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from fan_controller_mock import FanControllerMock
+
+
 app = Flask(__name__)
 CORS(app)
-fanController = None
+FAN_CONTROLLER = None
 
 
 @app.route('/')
@@ -27,10 +30,10 @@ def get_rpm():
         dict: JSON object containing the current RPM of the fan
     """
     try:
-        rpm = fanController.rpm
+        rpm = FAN_CONTROLLER.rpm
         return jsonify({'RPM': rpm})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+    except Exception as exception:
+        return jsonify({'error': str(exception)})
 
 
 @app.route('/DutyCycle', methods=['POST'])
@@ -43,12 +46,12 @@ def set_duty_cycle():
     try:
         data = request.get_json()
         duty_cycle = data['DutyCycle']
-        fanController.duty_cycle = duty_cycle
+        FAN_CONTROLLER.duty_cycle = duty_cycle
         return jsonify({'success': True})
-    except Exception as e:
+    except Exception as exception:
         return jsonify(
             {'success': False},
-            {'error': str(e)}), 500
+            {'error': str(exception)}), 500
 
 
 def run_app(host="0.0.0.0", port=5000):
@@ -68,18 +71,18 @@ if __name__ == '__main__':
     try:
         if 'mock' in sys.argv:
             print("Using Mock Fan Controller")
-            fanController = FanControllerMock()
+            FAN_CONTROLLER = FanControllerMock()
         else:
             print("Using Real Fan Controller")
             try:
-                from FanController import FanController
-                fanController = FanController(18, 23)
-            except Exception as e:
+                from fan_controller import FanController
+                FAN_CONTROLLER = FanController(18, 23)
+            except ImportError as e:
                 print("Unable to import FanController")
                 sys.exit(1)
-        ip_address = sys.argv[1]
-        port_num = sys.argv[2]
-        run_app(ip_address, port_num)
+        IP_ADDRESS = sys.argv[1]
+        PORT_NUM = sys.argv[2]
+        run_app(IP_ADDRESS, PORT_NUM)
     except Exception as e:
         print("Port Setup Failed, using defaults")
         run_app()

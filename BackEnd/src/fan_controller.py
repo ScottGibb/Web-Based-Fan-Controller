@@ -1,7 +1,8 @@
+"""Fan Controller Class"""
 import random
 import threading
 from time import sleep
-import RPi.GPIO as GPIO
+from RPi import GPIO
 
 
 class FanController():
@@ -42,7 +43,7 @@ class FanController():
         A private method to continuously update the RPM value.
         """
         self.__alive = True
-        while (self.__alive):
+        while self.__alive:
             self.__rpm = random.randint(0, 1000)
             sleep(0.5)
 

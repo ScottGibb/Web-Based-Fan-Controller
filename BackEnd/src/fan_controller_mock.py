@@ -1,15 +1,14 @@
+"""A mock class for the FanController class."""
 import random
 
 
 class FanControllerMock():
+    """A mock class for the FanController class.
+    """
 
-    def __init__(self, pwm_pin, tach_pin):
+    def __init__(self):
         """
         Initialize the FanControllerMock object.
-
-        Parameters:
-        pwm_pin (int): The PWM pin number.
-        tach_pin (int): The tachometer pin number.
         """
         self.__rpm = 0
         self.__duty_cycle = 0
