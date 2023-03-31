@@ -50,6 +50,15 @@ The same can be done for the frontend by navigating to the `PythonWebApp/FrontEn
 sh run.sh
 ```
 
+## Continuous Integration
+
+The project uses GitHub actions to perform continuous integration. The workflow is defined in the `.github/workflows folder
+
+### Build
+- shellcheck
+- 
+### Test
+
 ## Useful Links
 
 - [Flask](https://flask.palletsprojects.com/en/2.0.x/)
