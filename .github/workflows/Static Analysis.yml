@@ -1,4 +1,4 @@
-name: Test
+name: Static Analysis
 
 on: [push]
 
@@ -9,9 +9,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      -name: Download Packages
+      - name: Download Packages
         run: |
-         sudo npm install -g htmllint-cli
+          sudo npm install -g htmllint-cli
 
       - name: Static Analysis
         run: |
@@ -32,7 +32,3 @@ jobs:
       - name: Static Analysis
         run: |
           pylint --fail-under=9 ./BackEnd/src/*.py
-
-      - name: Run Unit Tests
-        run: |
-          echo "To be implemented"
