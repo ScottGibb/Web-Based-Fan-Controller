@@ -21,6 +21,7 @@ jobs:
           cd FrontEnd
           htmllint src/*.html
           csslint src/*.css
+          eslint src/*.js
 
   backend:
     runs-on: ubuntu-latest
