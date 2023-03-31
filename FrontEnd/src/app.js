@@ -1,7 +1,7 @@
 
 
 // The URL for the server
-const url = 'http://localhost:5000/';
+const url = 'http://192.168.0.68:5000/';
 
 
 /**
