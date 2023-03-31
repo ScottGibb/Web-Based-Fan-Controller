@@ -25,7 +25,7 @@ The architecture of the system is as follows:
 
 ### Update Pins
 
-Firstly, navigate to the `PythonWebApp/BackEnd/src` directory and open the `app.py` file. In this file you will need to update the constructor of FanController to the pins you have connected the fan to. The pin number should be the BCM pin number. Also when lauching on a raspberry pi, ensure that the pi-rpio requirement is uncommented inside the `requirements.txt` file. As well as this for the BackEnd dockerfile ensure that the `# FROM arm32v7/python:3.7` is commented in so that the appropriate docker image is created.
+Firstly, navigate to the `PythonWebApp/BackEnd/src` directory and open the `app.py` file. In this file you will need to update the constructor of FanController to the pins you have connected the fan to. The pin number should be the BCM pin number.
 
 Once this is completed, save the file and close it.
 
@@ -42,7 +42,7 @@ If you want to build the mock version of the backend, run the following command 
 docker-compose up -d --build -e MOCK="mock"
 ```
 
-After this the docker image will be built and the containers will be started. The web app should now be accessible at `http://localhost:8000`.
+After this the docker image will be built and the containers will be started. The web app should now be accessible at `http://server-ip:5001`.
 
 ### Build and run Docker Images Manually
 

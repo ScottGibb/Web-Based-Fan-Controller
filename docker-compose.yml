@@ -16,6 +16,6 @@ services:
     build: ./FrontEnd
     container_name: front-end
     ports:
-      - "8000:80"
+      - "5001:80"
     depends_on:
       - back-end
