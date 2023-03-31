@@ -1,4 +1,4 @@
-name: Build and Test Docker
+name: Build
 
 on: [push]
 
@@ -53,8 +53,10 @@ jobs:
 
       - name: Run BackEnd Script
         run: |
-          chmod +x ./BackEnd/run.sh mock
+          chmod +x ./BackEnd/run.sh
+          ./BackEnd/run.sh mock
 
       - name: Run FrontEnd Script
         run: |
           chmod +x ./FrontEnd/run.sh
+          ./FrontEnd/run.sh
