@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en ">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,11 +31,10 @@
 
   <body>
     <div>
-      <img />
       <h1>Fan Controller</h1>
       <img
         src="img/MiniGibb.jpeg"
-        id="Logo"
+        id="logo"
         alt="fan"
         width="200"
         height="200"
@@ -46,11 +45,12 @@
         id="fan"
         height="200"
         class="rotate"
+        alt="Fan Blades"
       />
     </div>
     <div class="btn-group" role="group" aria-label="Fan Control">
       <button
-        id="0%"
+        id="percent_0_btn"
         type="button"
         class="btn btn-secondary"
         onclick="setDutyCycle(0)"
@@ -58,7 +58,7 @@
         0%
       </button>
       <button
-        id="50%"
+        id="percent_50_btn"
         type="button"
         class="btn btn-secondary"
         onclick="setDutyCycle(50)"
@@ -66,7 +66,7 @@
         50%
       </button>
       <button
-        id="100%"
+        id="percent_100_btn"
         type="button"
         class="btn btn-secondary"
         onclick="setDutyCycle(100)"
@@ -75,16 +75,18 @@
       </button>
     </div>
     <div>
+      <input id="duty_input" type="text" placeholder="Duty Cycle %" />
       <input
-        id="dutyInput"
-        type="text"
-        id="fanSpeed"
-        placeholder="Duty Cycle %"
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        class="slider"
+        id="duty_slider"
+        oninput="setDutyCycle(this.value)"
       />
-      <input type="range" min "0" max="100" value="50" class="slider"
-      id="dutySlider" oninput="setDutyCycle(this.value)">
-      <p>Fan Duty Cyle: <span id="dutyCycle"></span>%</p>
-      <p>Fan RPM: <span id="fanRPM"></span></p>
+      <p>Fan Duty Cyle: <span id="duty_cycle"></span>%</p>
+      <p>Fan RPM: <span id="fan_rpm"></span></p>
 
       <button
         id="submit"

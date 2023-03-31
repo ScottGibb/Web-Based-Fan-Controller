@@ -8,6 +8,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      -name: Download Packages
+        run: |
+         sudo npm install -g htmllint-cli
+
+      - name: Static Analysis
+        run: |
+          cd FrontEnd
+          htmllint src/index.html
+
   backend:
     runs-on: ubuntu-latest
     steps:

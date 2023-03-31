@@ -9,15 +9,15 @@ function setDutyCycle(dutyCycle) {
     }
 
     // Update the duty cycle value on the front-end
-    var dutyCycleElement = document.getElementById("dutyCycle");
+    var dutyCycleElement = document.getElementById("duty_cycle");
     dutyCycleElement.innerHTML = dutyCycle;
-    var dutyCycleInputElement = document.getElementById("dutyInput");
-    document.getElementById("dutySlider").value = dutyCycle;
+    var dutyCycleInputElement = document.getElementById("duty_input");
+    document.getElementById("duty_slider").value = dutyCycle;
     dutyCycleInputElement.value = "";
 
     // Send the duty cycle to the server using a POST request
-    const data = { "DutyCycle": dutyCycle };
-    fetch(url+"DutyCycle", {
+    const data = { "duty_cycle": dutyCycle };
+    fetch(url+"duty_cycle", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function setDutyCycle(dutyCycle) {
 
 // This function gets the duty cycle input value from the front-end and sets the duty cycle
 function getInputValue() {
-    var inputVal = document.getElementById("dutyInput").value;
+    var inputVal = document.getElementById("duty_input").value;
     if(inputVal == ""){
         return;
     }
@@ -46,7 +46,7 @@ function updateRPM() {
     rpm = JSON.parse(rpmJSON).RPM;
 
     // Update the RPM value on the front-end
-    var rpmElement = document.getElementById("fanRPM");
+    var rpmElement = document.getElementById("fan_rpm");
     rpmElement.innerHTML = rpm;
 }
 
@@ -61,7 +61,7 @@ function httpGet(theUrl) {
 // This function is a global key listener that listens for ArrowRight, ArrowLeft, +, -, and Enter keys
 // ArrowRight and + increase the duty cycle by 1, ArrowLeft and - decrease it by 1, and Enter gets the input value and sets the duty cycle
 function globalKeyListener(e) {
-    let dutyCycle = document.getElementById("dutySlider").value;
+    let dutyCycle = document.getElementById("duty_slider").value;
     console.log(e.key);
     switch (e.key) {
         case 'ArrowRight':
