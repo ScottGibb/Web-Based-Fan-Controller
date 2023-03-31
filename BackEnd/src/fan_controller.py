@@ -23,6 +23,7 @@ class FanController():
             pwm_pin (int): The GPIO pin number for PWM control.
             tach_pin (int): The GPIO pin number for tachometer feedback.
         """
+        self.__PWM_FREQUENCY =1000
         self.__rpm = 0
         self.__duty_cycle = 0
         self.__alive = False
@@ -33,7 +34,7 @@ class FanController():
         GPIO.setup(self.__pwm_pin, GPIO.OUT)
         GPIO.setup(self.__tach_pin, GPIO.IN)
 
-        self.__pwm = GPIO.PWM(self.__pwm_pin, 100)
+        self.__pwm = GPIO.PWM(self.__pwm_pin, self.__PWM_FREQUENCY)
         self.__pwm.start(0)
 
         thread = threading.Thread(target=self.__update_loop, args=())
