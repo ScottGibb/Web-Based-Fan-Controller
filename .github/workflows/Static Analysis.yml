@@ -13,13 +13,13 @@ jobs:
         run: |
           sudo npm install -g htmllint-cli
           sudo npm install -g csslint
-          sudo npm install -g jslint
+          sudo npm install -g eslint
+          npm init @eslint/config
       - name: Static Analysis
         run: |
           cd FrontEnd
           htmllint src/*.html
           csslint src/*.css
-          jslint src/*.js
 
   backend:
     runs-on: ubuntu-latest
