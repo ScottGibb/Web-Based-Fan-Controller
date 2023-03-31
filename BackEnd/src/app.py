@@ -47,6 +47,8 @@ def set_duty_cycle():
         data = request.get_json()
         duty_cycle = data['DutyCycle']
         FAN_CONTROLLER.duty_cycle = int(duty_cycle)
+        print("Received Duty Cycle: " + str(duty_cycle))
+        print(data)
         return jsonify({'success': True})
 
     except Exception as exception:
