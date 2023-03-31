@@ -75,10 +75,10 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 3:
         print("Server arguments provided")
-        ip_address = sys.argv[1]
-        port = sys.argv[2]
+        IP_ADDRESS = sys.argv[1]
+        PORT = sys.argv[2]
         FAN_CONTROLLER = FanController(37, 35)
-        run_app(ip_address, port)
+        run_app(IP_ADDRESS, PORT)
     elif len(sys.argv) == 2:
         if 'mock' in sys.argv:
             print("Using Mock Fan Controller")
