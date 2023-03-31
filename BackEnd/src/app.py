@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from fan_controller_mock import FanControllerMock
+from fan_controller import FanController
 
 
 app = Flask(__name__)
@@ -71,21 +72,19 @@ if __name__ == '__main__':
     print("Script Arguments:")
     for var in sys.argv:
         print(var)
-    try:
+
+    if len(sys.argv) == 3:
+        print("Server arguments provided")
+        ip_address = sys.argv[1]
+        port = sys.argv[2]
+        FAN_CONTROLLER = FanController(37, 35)
+        run_app(ip_address, port)
+    elif len(sys.argv) == 2:
         if 'mock' in sys.argv:
             print("Using Mock Fan Controller")
             FAN_CONTROLLER = FanControllerMock()
-        else:
-            print("Using Real Fan Controller")
-            try:
-                from fan_controller import FanController
-                FAN_CONTROLLER = FanController(37, 35)
-            except ImportError as e:
-                print("Unable to import FanController")
-                sys.exit(1)
-        IP_ADDRESS = sys.argv[1]
-        PORT_NUM = sys.argv[2]
-        run_app(IP_ADDRESS, PORT_NUM)
-    except Exception as e:
-        print("Port Setup Failed, using defaults")
+            run_app()
+    else:
+        print("Using Default Arguments")
+        FAN_CONTROLLER = FanController(37, 35)
         run_app()

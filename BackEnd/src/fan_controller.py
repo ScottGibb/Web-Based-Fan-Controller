@@ -34,7 +34,7 @@ class FanController():
         GPIO.setup(self.__pwm_pin, GPIO.OUT)
         GPIO.setup(self.__tach_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-        self.__pwm = GPIO.PWM(self.__pwm_pin, self.__PWM_FREQUENCY)
+        self.__pwm = GPIO.PWM(self.__pwm_pin, self.PWM_FREQUENCY)
         self.__pwm.start(0)
         GPIO.add_event_detect(
             self.__tach_pin, GPIO.FALLING, self.__fallen_trigger)
@@ -54,14 +54,14 @@ class FanController():
             channel (int): The GPIO channel number.
         """
         delta_time = time.time() - self.__start_time
-        if delta_time < 0.05:
+        if delta_time < 0.005:
             return  # reject spuriously short pulses
-
+        print("Delta Time: " + str(delta_time))
         freq = 1 / delta_time
         self.__rpm = (freq / 2) * 60
         self.__start_time = time.time()
 
-    @property
+    @ property
     def rpm(self):
         """
         Gets the current RPM value.
@@ -71,7 +71,7 @@ class FanController():
         """
         return self.__rpm
 
-    @property
+    @ property
     def duty_cycle(self):
         """
         Gets the current duty cycle value.
@@ -81,7 +81,7 @@ class FanController():
         """
         return self.__duty_cycle
 
-    @duty_cycle.setter
+    @ duty_cycle.setter
     def duty_cycle(self, value):
         """
         Sets the duty cycle value.
