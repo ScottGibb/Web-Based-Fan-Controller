@@ -46,7 +46,7 @@ def set_duty_cycle():
     try:
         data = request.get_json()
         duty_cycle = data['DutyCycle']
-        FAN_CONTROLLER.duty_cycle = duty_cycle
+        FAN_CONTROLLER.duty_cycle = int(duty_cycle)
         return jsonify({'success': True})
 
     except Exception as exception:

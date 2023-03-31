@@ -20,13 +20,13 @@ function setDutyCycle(dutyCycle) {
         dutyCycle = 0;
     }
 
-    // Update the duty cycle value on the front-end
 
+    console.log(dutyCycle);
     // Update the duty cycle value on the front-end
-    var dutyCycleElement = document.getElementById("dutyCycle");
+    var dutyCycleElement = document.getElementById("duty_cycle");
     dutyCycleElement.innerHTML = dutyCycle;
-    var dutyCycleInputElement = document.getElementById("dutyInput");
-    document.getElementById("dutySlider").value = dutyCycle;
+    var dutyCycleInputElement = document.getElementById("duty_input");
+    document.getElementById("duty_slider").value = dutyCycle;
     dutyCycleInputElement.value = "";
 
     // Send the duty cycle to the server using a POST request

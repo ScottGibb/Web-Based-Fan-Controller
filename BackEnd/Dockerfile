@@ -19,7 +19,7 @@ COPY requirements.txt /app
 #RUN apt-get install -y build-essential
 #RUN apt-get install python3-pip -y
 # Install any needed packages specified in requirements.txt
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt --no-cache-dir
 
 EXPOSE 5000
 
