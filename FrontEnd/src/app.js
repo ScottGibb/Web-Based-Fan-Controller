@@ -1,6 +1,11 @@
+/*jslint browser:true */
+/*global $, jQuery*/
+
+
 // This function sets the duty cycle of the fan and sends it to the server
 function setDutyCycle(dutyCycle) {
     // Make sure the duty cycle is within the valid range of 0-100
+    "use strict";
     if (dutyCycle > 100) {
         dutyCycle = 100;
     }
@@ -16,8 +21,8 @@ function setDutyCycle(dutyCycle) {
     dutyCycleInputElement.value = "";
 
     // Send the duty cycle to the server using a POST request
-    const data = { "duty_cycle": dutyCycle };
-    fetch(url+"duty_cycle", {
+    var data = { "duty_cycle": dutyCycle };
+    fetch(url + "duty_cycle", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
