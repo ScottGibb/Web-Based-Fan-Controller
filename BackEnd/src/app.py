@@ -76,7 +76,7 @@ if __name__ == '__main__':
             print("Using Real Fan Controller")
             try:
                 from fan_controller import FanController
-                FAN_CONTROLLER = FanController(18, 23)
+                FAN_CONTROLLER = FanController(37, 35)
             except ImportError as e:
                 print("Unable to import FanController")
                 sys.exit(1)
