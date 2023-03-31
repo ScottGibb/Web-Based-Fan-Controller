@@ -2,6 +2,7 @@
 import random
 import threading
 from time import sleep
+import time
 from RPi import GPIO
 
 
@@ -43,9 +44,17 @@ class FanController():
         A private method to continuously update the RPM value.
         """
         self.__alive = True
+        prev_time = 0
+        prev_count = 0
         while self.__alive:
-            self.__rpm = random.randint(0, 1000)
-            sleep(0.5)
+            curr_time = time.time()
+            duration = curr_time - prev_time
+            prev_time = curr_time
+            count = GPIO.input(self.__tach_pin)
+            if count != prev_count:
+                self.__rpm = int((count / duration) * 60 / 2)
+                prev_count = count
+            sleep(1)
 
     @property
     def rpm(self):
@@ -75,6 +84,6 @@ class FanController():
         Args:
             value (int): The desired duty cycle value (0-100).
         """
-        self.__duty_cycle = value
         print("Duty Cycle Set to: " + str(value))
         self.__pwm.ChangeDutyCycle(value)
+        self.__duty_cycle = value
