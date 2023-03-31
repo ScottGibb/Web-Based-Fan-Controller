@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
