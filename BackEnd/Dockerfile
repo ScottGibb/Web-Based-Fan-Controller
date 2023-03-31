@@ -1,14 +1,14 @@
 
 # A Simple Dockerfile for hosting the backend of the PythonWebApp
 
-# Use the official Python image
-FROM python:3.8-slim-buster
+FROM raspbian/stretch
 
 # Set the working directory to /app
 WORKDIR /app
 
 RUN apt-get update -y
 RUN apt-get install build-essential -y
+RUN apt-get install python3-pip -y
 
 # Copy the current directory contents into the container at /app
 COPY src /app

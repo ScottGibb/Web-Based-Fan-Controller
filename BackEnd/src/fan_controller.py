@@ -1,6 +1,4 @@
 """Fan Controller Class"""
-import random
-import threading
 from time import sleep
 import time
 from RPi import GPIO
@@ -23,10 +21,10 @@ class FanController():
             pwm_pin (int): The GPIO pin number for PWM control.
             tach_pin (int): The GPIO pin number for tachometer feedback.
         """
-        self.__PWM_FREQUENCY = 1000
+        self.PWM_FREQUENCY = 1000
         self.__rpm = 0
         self.__duty_cycle = 0
-        self.__alive = False
+        # Pins
         self.__pwm_pin = pwm_pin
         self.__tach_pin = tach_pin
 
@@ -55,11 +53,11 @@ class FanController():
         Args:
             channel (int): The GPIO channel number.
         """
-        dt = time.time() - self.__start_time
-        if dt < 0.01:
+        delta_time = time.time() - self.__start_time
+        if delta_time < 0.05:
             return  # reject spuriously short pulses
 
-        freq = 1 / dt
+        freq = 1 / delta_time
         self.__rpm = (freq / 2) * 60
         self.__start_time = time.time()
 
