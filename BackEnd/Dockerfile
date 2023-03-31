@@ -2,6 +2,8 @@
 
 # Use the official Python image
 FROM python:3.7
+# Required for Raspberry Pi Builds
+# FROM arm32v7/python:3.7
 
 # Set the working directory to /app
 WORKDIR /app
