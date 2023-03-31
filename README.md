@@ -1,6 +1,8 @@
 # Web Based Fan Controller
 
-[![Build and Test Docker](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/docker.yml/badge.svg)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/docker.yml)[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![Build](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Build.yml/badge.svg?branch=main)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Build.yml)
+[![Test](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Test.yml/badge.svg?branch=main)](https://github.com/ScottGibb/Web-Based-Fan-Controller/actions/workflows/Test.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 
 ## Summary
@@ -56,6 +58,7 @@ The project uses GitHub actions to perform continuous integration. The workflow 
 
 ### Build
 - shellcheck
+- Hadolint
 - 
 ### Test
 

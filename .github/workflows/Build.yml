@@ -82,4 +82,4 @@ jobs:
           chmod +x ./FrontEnd/run.sh
           cd FrontEnd
           ./run.sh
-          cd..
+          cd ..
