@@ -12,11 +12,12 @@ jobs:
       - name: Download Packages
         run: |
           sudo npm install -g htmllint-cli
-
+          sudo npm install -g csslint
       - name: Static Analysis
         run: |
           cd FrontEnd
-          htmllint src/index.html
+          htmllint src/*.html
+          stylelint src/*.css
 
   backend:
     runs-on: ubuntu-latest
