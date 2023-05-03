@@ -11,7 +11,7 @@ jobs:
 
       - name: Download Packages
         run: |
-          sudo apt-get install npm
+          sudo apt-get install npm -y
           sudo npm install -g htmllint-cli
           sudo npm install -g csslint
           sudo npm install -g eslint
