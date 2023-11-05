@@ -56,7 +56,7 @@ class FanController():
         delta_time = time.time() - self.__start_time
         if delta_time < 0.005:
             return  # reject spuriously short pulses
-        print("Delta Time: " + str(delta_time))
+        #print("Delta Time: " + str(delta_time))
         freq = 1 / delta_time
         self.__rpm = (freq / 2) * 60
         self.__start_time = time.time()
