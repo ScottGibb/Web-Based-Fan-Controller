@@ -69,3 +69,17 @@ jobs:
             - name: Shell Check
               run: |
                 shellcheck **/*.sh         
+
+  YAML_Lint_Check:
+    name: YAML Lint Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install yamllint
+        run: sudo apt install yamllint
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run yamllint
+        run: |
+          echo "Checking YAML files"
+          yamllint -c .yamllint.yml .github/**/**.yml
+          yamllint -c .yamllint.yml **.yml
