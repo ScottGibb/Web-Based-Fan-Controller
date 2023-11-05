@@ -1,7 +1,7 @@
 
 # A Simple Dockerfile for hosting the backend of the PythonWebApp
 
-FROM raspbian/stretch
+FROM debian:latest
 
 # Set the working directory to /app
 WORKDIR /app
