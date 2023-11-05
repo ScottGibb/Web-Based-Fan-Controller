@@ -16,7 +16,7 @@ COPY requirements.txt /app
 #RUN apt-get install -y build-essential
 #RUN apt-get install python3-pip -y
 # Install any needed packages specified in requirements.txt
-RUN pip3 install -r requirements.txt --no-cache-dir
+RUN pip3 install -r requirements.txt --no-cache-dir --break-system-package
 
 
 # Copy the current directory contents into the container at /app
