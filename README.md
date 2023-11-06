@@ -12,7 +12,6 @@
 
 This project contains a very simple web based application for controlling a Fan. This was my first time creating a web app and as such is not the best app ever built. However it was done as an educational project to explore different aspects of web development. The project consists of both a backend and frontend component. The backend is written in Python and uses the Flask framework. The frontend is written in HTML and CSS and uses Bootstrap for styling. The backend and frontend are packaged together in a Docker compose file, the system is designed to run on a raspberry pi. However the frontend docker container can be moved to a seperate server if desired.
 
-
 ## Architecture
 
 The architecture of the system is as follows:
@@ -36,6 +35,7 @@ Next, navigate to the `PythonWebApp` directory and run the following command:
 ```bash
 docker-compose up -d --build
 ```
+
 If you want to build the mock version of the backend, run the following command instead:
 
 ```bash
@@ -71,10 +71,10 @@ As part of the pipelines associated with this project is a build stage, Which bu
 
 This allows both dockerfiles to be validated and tested. This stage also tests the run scripts for both backend and frontend.
 
-
 ### Static Analysis
 
 The static analysis stage is defined in the `Static Analysis.yml` file. It performs static analysis on the code using the following tools:
+
 - pylint
 - cslint
 - eslint
