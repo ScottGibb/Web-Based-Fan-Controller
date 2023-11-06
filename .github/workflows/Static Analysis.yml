@@ -56,8 +56,7 @@ jobs:
 
       - name: Run markdownlint
         run: markdownlint '**/*.md'
-              
-              
+
   Shell-Lint_Check:
     name: Shell Check
     runs-on: ubuntu-latest
@@ -67,10 +66,10 @@ jobs:
 
       - name: Download Packages
         run: |
-          sudo apt-get install shellcheck 
+          sudo apt-get install shellcheck
       - name: Shell Check
         run: |
-          shellcheck **/*.sh         
+          shellcheck **/*.sh
 
   YAML_Lint_Check:
     name: YAML Lint Check
