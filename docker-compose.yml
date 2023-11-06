@@ -1,8 +1,9 @@
+---
 # A Simple Docker compose stack for running both front end and back end containers
 version: '3'
 x-project_name: "fan-controller-web-stack"
 services:
-  
+
   back-end:
     build: ./BackEnd
     container_name: back-end
