@@ -10,16 +10,13 @@ RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
         python3 \
         ca-certificates \
-        gpg \
         curl && \
-    curl -fsSL https://archive.raspberrypi.com/debian/raspberrypi.gpg.key | \
-        gpg --dearmor -o /usr/share/keyrings/raspberrypi-archive-keyring.gpg && \
-    printf '%s\n' \
-        'deb [arch=arm64 signed-by=/usr/share/keyrings/raspberrypi-archive-keyring.gpg] https://archive.raspberrypi.com/debian/ trixie main' \
-        > /etc/apt/sources.list.d/raspberrypi.list && \
-    apt-get update -y && \
-    apt-get install -y --no-install-recommends python3-lgpio && \
-    rm -rf /var/lib/apt/lists/*
+    curl -fsSL -o /tmp/liblgpio1.deb \
+        https://archive.raspberrypi.com/debian/pool/main/l/lg-gpio/liblgpio1_0.2.2-1~rpt1+trixie_arm64.deb && \
+    curl -fsSL -o /tmp/python3-lgpio.deb \
+        https://archive.raspberrypi.com/debian/pool/main/l/lg-gpio/python3-lgpio_0.2.2-1~rpt1+trixie_arm64.deb && \
+    dpkg -i /tmp/liblgpio1.deb /tmp/python3-lgpio.deb && \
+    rm -rf /tmp/liblgpio1.deb /tmp/python3-lgpio.deb /var/lib/apt/lists/*
 
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
 RUN sh /uv-installer.sh && rm /uv-installer.sh
