@@ -6,9 +6,9 @@ FROM debian:latest
 # Set the working directory to /app
 WORKDIR /app
 
-RUN apt-get update -y
-RUN apt-get install build-essential -y
-RUN apt-get install python3-pip -y
+RUN apt-get update -y && \
+    apt-get install -y build-essential python3-pip swig && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /app
 
@@ -27,7 +27,6 @@ EXPOSE 5000
 ENV MOCK=""
 # Run app.py when the container launches
 CMD ["sh", "-c","python3 app.py $MOCK"]
-
 
 
 
