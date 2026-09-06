@@ -1,7 +1,10 @@
-"""Fan Controller Class"""
-from time import sleep
+"""Fan Controller Class."""
 import time
-from RPi import GPIO
+import lgpio
+
+
+# Physical header pin to BCM GPIO mapping used by the old GPIO.BOARD code.
+PHYSICAL_TO_BCM = {35: 19, 37: 26}
 
 
 class FanController():
@@ -25,41 +28,45 @@ class FanController():
         self.__rpm = 0
         self.__duty_cycle = 0
         # Pins
-        self.__pwm_pin = pwm_pin
-        self.__tach_pin = tach_pin
+        self.__pwm_pin = PHYSICAL_TO_BCM.get(pwm_pin, pwm_pin)
+        self.__tach_pin = PHYSICAL_TO_BCM.get(tach_pin, tach_pin)
 
         self.__start_time = 0
+        self.__chip = lgpio.gpiochip_open(0)
+        self.__callback = None
 
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.__pwm_pin, GPIO.OUT)
-        GPIO.setup(self.__tach_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        lgpio.gpio_claim_output(self.__chip, 0, self.__pwm_pin, 0)
+        lgpio.gpio_claim_input(self.__chip, lgpio.SET_PULL_UP, self.__tach_pin)
+        self.__callback = lgpio.callback(
+            self.__chip, self.__tach_pin, lgpio.FALLING_EDGE, self.__fallen_trigger
+        )
 
-        self.__pwm = GPIO.PWM(self.__pwm_pin, self.PWM_FREQUENCY)
-        self.__pwm.start(0)
-        GPIO.add_event_detect(
-            self.__tach_pin, GPIO.FALLING, self.__fallen_trigger)
+        lgpio.tx_pwm(self.__chip, self.__pwm_pin, self.PWM_FREQUENCY, 0)
 
     def __del__(self):
         """
         Destructor for the FanController class.
         """
-        self.__pwm.stop()
-        GPIO.cleanup()
+        if self.__callback is not None:
+            self.__callback.cancel()
+        if hasattr(self, "_FanController__chip"):
+            lgpio.tx_pwm(self.__chip, self.__pwm_pin, 0, 0)
+            lgpio.gpiochip_close(self.__chip)
 
-    def __fallen_trigger(self, channel):
+    def __fallen_trigger(self, _chip, _gpio, _level, tick):
         """
         A callback function for the tachometer falling edge.
 
         Args:
             channel (int): The GPIO channel number.
         """
-        delta_time = time.time() - self.__start_time
+        delta_time = (tick - self.__start_time) / 1_000_000
         if delta_time < 0.005:
             return  # reject spuriously short pulses
         #print("Delta Time: " + str(delta_time))
         freq = 1 / delta_time
         self.__rpm = (freq / 2) * 60
-        self.__start_time = time.time()
+        self.__start_time = tick
 
     @ property
     def rpm(self):
@@ -90,5 +97,7 @@ class FanController():
             value (int): The desired duty cycle value (0-100).
         """
         print("Duty Cycle Set to: " + str(value))
-        self.__pwm.ChangeDutyCycle(value)
+        if not 0 <= value <= 100:
+            raise ValueError("Duty cycle must be between 0 and 100")
+        lgpio.tx_pwm(self.__chip, self.__pwm_pin, self.PWM_FREQUENCY, value)
         self.__duty_cycle = value

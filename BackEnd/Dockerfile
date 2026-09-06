@@ -1,34 +1,30 @@
 
 # A Simple Dockerfile for hosting the backend of the PythonWebApp
 
-FROM debian:latest
+FROM debian:trixie-slim
 
 # Set the working directory to /app
 WORKDIR /app
 
 RUN apt-get update -y && \
-    apt-get install -y build-essential python3-pip swig && \
+    apt-get install -y --no-install-recommends python3 python3-lgpio ca-certificates curl && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt /app
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+ENV PATH="/root/.local/bin:${PATH}"
 
-#RUN apt-get update
-#RUN apt-get install -y build-essential
-#RUN apt-get install python3-pip -y
-# Install any needed packages specified in requirements.txt
-RUN pip3 install -r requirements.txt --no-cache-dir --break-system-package
+COPY pyproject.toml /app/
+RUN uv sync --system --no-install-project
 
 
 # Copy the current directory contents into the container at /app
 COPY src /app
 
+RUN uv sync --system
+
 EXPOSE 5000
 
 ENV MOCK=""
 # Run app.py when the container launches
-CMD ["sh", "-c","python3 app.py $MOCK"]
-
-
-
-
-
+CMD ["sh", "-c", "uv run --system python app.py $MOCK"]
