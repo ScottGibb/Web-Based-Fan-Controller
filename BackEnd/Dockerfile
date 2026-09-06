@@ -1,7 +1,7 @@
 
 # A Simple Dockerfile for hosting the backend of the PythonWebApp
 
-FROM debian:trixie-slim
+FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim
 
 # Set the working directory to /app
 WORKDIR /app
@@ -18,21 +18,20 @@ RUN apt-get update -y && \
     dpkg -i /tmp/liblgpio1.deb /tmp/python3-lgpio.deb && \
     rm -rf /tmp/liblgpio1.deb /tmp/python3-lgpio.deb /var/lib/apt/lists/*
 
-ADD https://astral.sh/uv/install.sh /uv-installer.sh
-RUN sh /uv-installer.sh && rm /uv-installer.sh
-ENV PATH="/root/.local/bin:${PATH}"
+ENV PYTHONPATH="/usr/lib/python3/dist-packages"
+RUN python -c "import lgpio; print(lgpio.__file__)"
 
 COPY pyproject.toml /app/
-RUN uv sync --system --no-install-project
+RUN uv lock && uv sync --no-install-project
 
 
 # Copy the current directory contents into the container at /app
 COPY src /app
 
-RUN uv sync --system
+RUN uv sync
 
 EXPOSE 5000
 
 ENV MOCK=""
 # Run app.py when the container launches
-CMD ["sh", "-c", "uv run --system python app.py $MOCK"]
+CMD ["sh", "-c", "uv run python app.py $MOCK"]
