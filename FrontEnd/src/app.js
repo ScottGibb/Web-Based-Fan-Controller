@@ -1,7 +1,8 @@
 
 
-// The URL for the server
-const url = 'http://192.168.0.68:5000/';
+// Flask listens on container port 5000 and is published on host port 5002.
+// Use the host serving this page so the UI also works if the Pi's IP changes.
+const url = `${window.location.protocol}//${window.location.hostname}:5002/`;
 
 
 /**
