@@ -7,7 +7,18 @@ FROM debian:trixie-slim
 WORKDIR /app
 
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends python3 python3-lgpio ca-certificates curl && \
+    apt-get install -y --no-install-recommends \
+        python3 \
+        ca-certificates \
+        gpg \
+        curl && \
+    curl -fsSL https://archive.raspberrypi.com/debian/raspberrypi.gpg.key | \
+        gpg --dearmor -o /usr/share/keyrings/raspberrypi-archive-keyring.gpg && \
+    printf '%s\n' \
+        'deb [arch=arm64 signed-by=/usr/share/keyrings/raspberrypi-archive-keyring.gpg] https://archive.raspberrypi.com/debian/ trixie main' \
+        > /etc/apt/sources.list.d/raspberrypi.list && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends python3-lgpio && \
     rm -rf /var/lib/apt/lists/*
 
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
